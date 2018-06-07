@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+   <Button
+       android:id="@+id/btn_1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="基本对话框"/>
+
+   <Button
+       android:id="@+id/btn_2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="列表对话框"/>
+   <Button
+       android:id="@+id/btn_3"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="单选对话框"/>
+   <Button
+       android:id="@+id/btn_4"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="多选对话框"/>
+   <Button
+       android:id="@+id/btn_5"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="等待对话框"/>
+   <Button
+       android:id="@+id/btn_6"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="进度条对话框"/>
+   <Button
+       android:id="@+id/btn_7"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="等待对话框"/>
+   <Button
+       android:id="@+id/btn_8"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="等待对话框"/>
+
+</LinearLayout>
