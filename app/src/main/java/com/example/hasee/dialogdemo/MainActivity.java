@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -19,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn4;
     private Button btn5;
     private Button btn6;
+    private Button btn7;
+    private Button btn8;
+    private Button btn9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn5.setOnClickListener(this);
         btn6 = (Button)findViewById(R.id.btn_6);
         btn6.setOnClickListener(this);
+        btn7 = (Button)findViewById(R.id.btn_7);
+        btn7.setOnClickListener(this);
+        btn8 = (Button)findViewById(R.id.btn_8);
+        btn8.setOnClickListener(this);
+        btn9 = (Button)findViewById(R.id.btn_9);
+        btn9.setOnClickListener(this);
 
     }
 
@@ -62,6 +74,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_6:
                 showWhiteDialog();
+                break;
+            case R.id.btn_7:
+                DiyDialog1();
+                break;
+            case R.id.btn_8:
+                DiyDialog2();
+                break;
+            case R.id.btn_9:
+                DiyDialog3();
                 break;
 
 
@@ -234,10 +255,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }).start();
     }
     /**
-     * 自定义的
+     * 自定义1 控制普通的dialog的位置，大小，透明度
+     * 在普通的dialog.show下面添加东西
      */
-    private void showdiyDialog(){
-        AlertDialog.Builder diyDialog = new AlertDialog.Builder(MainActivity.this);
-        View dialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_Demo1,null);
+    private void DiyDialog1(){
+        AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(MainActivity.this);
+        alterDiaglog.setIcon(R.drawable.icon);//图标
+        alterDiaglog.setTitle("简单的dialog");//文字
+        alterDiaglog.setMessage("生存还是死亡");//提示消息
+        //积极的选择
+        alterDiaglog.setPositiveButton("生存", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"点击了生存",Toast.LENGTH_SHORT).show();
+            }
+        });
+        //消极的选择
+        alterDiaglog.setNegativeButton("死亡", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"点击了死亡",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alterDiaglog.setNeutralButton("不生不死", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"点击了不生不死",Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = alterDiaglog.create();
+
+        //显示
+        dialog.show();
+        //自定义的东西
+       //放在show()之后，不然有些属性是没有效果的，比如height和width
+        Window dialogWindow = dialog.getWindow();
+        WindowManager m = getWindowManager();
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        // 设置高度和宽度
+        p.height = (int) (d.getHeight() * 0.4); // 高度设置为屏幕的0.6
+        p.width = (int) (d.getWidth() * 0.6); // 宽度设置为屏幕的0.65
+
+        p.gravity = Gravity.TOP;//设置位置
+
+        p.alpha = 0.8f;//设置透明度
+        dialogWindow.setAttributes(p);
     }
+    /**
+     * 自定义dialog2 简单自定义布局
+     */
+    private void DiyDialog2() {
+        AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(MainActivity.this,R.style.MyDialog);
+        alterDiaglog.setView(R.layout.dialog_1);//加载进去
+        AlertDialog dialog = alterDiaglog.create();
+        //显示
+        dialog.show();
+        //自定义的东西
+    }
+    /**
+     * 完全自定义dialog2
+     */
+    private void DiyDialog3() {
+        MyDialog1 myDialog1 = new MyDialog1(MainActivity.this);
+        myDialog1.setContentView(R.layout.dialog_2);
+        Button s = (Button)myDialog1.findViewById(R.id.dialog_btn);
+        s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"点击了",Toast.LENGTH_SHORT).show();
+            }
+        });
+        myDialog1.show();
+    }
+
+
+
+
+
+
+
 }
