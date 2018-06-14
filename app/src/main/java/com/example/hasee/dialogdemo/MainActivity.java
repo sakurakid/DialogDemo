@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,MyDialog1.OnCenterItemClickListener{
     private Button btn1;
     private Button btn2;
     private Button btn3;
@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn7;
     private Button btn8;
     private Button btn9;
+
+    private MyDialog1 myDialog1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn8.setOnClickListener(this);
         btn9 = (Button)findViewById(R.id.btn_9);
         btn9.setOnClickListener(this);
-
+        myDialog1 = new MyDialog1(this,R.layout.dialog_2,new int[]{R.id.dialog_btn});
+        myDialog1.setOnCenterItemClickListener((MyDialog1.OnCenterItemClickListener) this);
     }
 
 
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 DiyDialog2();
                 break;
             case R.id.btn_9:
-                DiyDialog3();
+                myDialog1.show();
                 break;
 
 
@@ -317,23 +320,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 完全自定义dialog2
      */
-    private void DiyDialog3() {
-        MyDialog1 myDialog1 = new MyDialog1(MainActivity.this);
-        myDialog1.setContentView(R.layout.dialog_2);
-        Button s = (Button)myDialog1.findViewById(R.id.dialog_btn);
-        s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//    private void DiyDialog3() {
+//        MyDialog1 myDialog1 = new MyDialog1(MainActivity.this);
+//        myDialog1.setContentView(R.layout.dialog_2);
+//        Button s = (Button)myDialog1.findViewById(R.id.dialog_btn);
+//        s.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(),"点击了",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        myDialog1.show();
+//    }
+
+
+    @Override
+    public void OnCenterItemClick(MyDialog1 dialog, View view) {
+        switch (view.getId()){
+            case R.id.dialog_btn:
                 Toast.makeText(getApplicationContext(),"点击了",Toast.LENGTH_SHORT).show();
-            }
-        });
-        myDialog1.show();
+                break;
+            default:
+                break;
+        }
+
     }
-
-
-
-
-
-
-
 }
